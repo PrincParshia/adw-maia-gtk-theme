@@ -367,11 +367,13 @@ headerbar .subtitle, .titlebar:not(headerbar) .subtitle, label.separator {
 }
 spinner {
   background: none;
-  opacity: 0;
-  -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
 }
 spinner:backdrop {
   color: mix(@window_fg_color,@window_bg_color,0.5);
+}
+spinner {
+  opacity: 0;
+  -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
 }
 spinner:checked {
   opacity: 1;
@@ -450,12 +452,16 @@ button:checked {
   box-shadow: none;
   text-shadow: none;
   -gtk-icon-shadow: none;
-  transition: background 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 notebook > header > tabs > arrow:active:hover, notebook > header > tabs > arrow:checked:hover,
 button:active:hover,
 button:checked:hover {
   background-color: mix(@window_fg_color,@window_bg_color,0.65);
+}
+notebook > header > tabs > arrow:active, notebook > header > tabs > arrow:checked,
+button:active,
+button:checked {
+  transition: background 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 notebook > header > tabs > arrow:active, notebook > header > tabs > arrow:checked,
 button:active,
@@ -544,6 +550,11 @@ row:selected button.flat:not(:active):not(:checked):not(:hover):not(disabled) {
 button.osd {
   min-width: 32px;
   min-height: 32px;
+}
+button.osd.image-button {
+  min-width: 34px;
+}
+button.osd {
   color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   color: white;
@@ -552,9 +563,6 @@ button.osd {
   background-clip: padding-box;
   border: none;
   box-shadow: none;
-}
-button.osd.image-button {
-  min-width: 34px;
 }
 button.osd:hover {
   color: white;
@@ -930,8 +938,6 @@ button.circular {
   border-radius: 9999px;
   -gtk-outline-radius: 9999px;
   padding: 4px;
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
 }
 button.circular label {
   padding: 0;
@@ -947,6 +953,10 @@ button.circular:hover:not(.osd):not(:checked):not(:active):not(:disabled):not(:b
   background-color: mix(@window_fg_color,@window_bg_color,0.85);
   box-shadow: none;
   border-color: transparent;
+}
+button.circular {
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
 }
 
 stacksidebar row.needs-attention > label,
@@ -1669,9 +1679,6 @@ treeview entry.flat:focus, treeview entry:focus {
   padding: 5px;
   margin-top: 2px;
   margin-bottom: 2px;
-  border-style: none;
-  color: @accent_fg_color;
-  background-color: @accent_bg_color;
 }
 :dir(ltr) .entry-tag {
   margin-left: 8px;
@@ -1680,6 +1687,11 @@ treeview entry.flat:focus, treeview entry:focus {
 :dir(rtl) .entry-tag {
   margin-left: -5px;
   margin-right: 8px;
+}
+.entry-tag {
+  border-style: none;
+  color: @accent_fg_color;
+  background-color: @accent_bg_color;
 }
 .entry-tag:hover {
   background-color: mix(white,@accent_bg_color,0.9);
@@ -1796,9 +1808,6 @@ button:visited > label {
   text-decoration-line: underline;
 }
 
-spinbutton {
-  font-feature-settings: "tnum";
-}
 spinbutton:not(.vertical) {
   padding: 0;
 }
@@ -1849,10 +1858,12 @@ spinbutton:not(.vertical) button:active {
   box-shadow: none;
   text-shadow: none;
   -gtk-icon-shadow: none;
-  background-color: alpha(currentColor,0.15);
 }
 spinbutton:not(.vertical) button:active:hover {
   background-color: mix(@window_fg_color,@window_bg_color,0.65);
+}
+spinbutton:not(.vertical) button:active {
+  background-color: alpha(currentColor,0.15);
 }
 spinbutton:not(.vertical) button:dir(ltr):last-child {
   border-radius: 0 9px 9px 0;
@@ -1994,6 +2005,9 @@ treeview spinbutton:not(.vertical) {
 treeview spinbutton:not(.vertical) entry {
   min-height: 0;
   padding: 1px 2px;
+}
+spinbutton {
+  font-feature-settings: "tnum";
 }
 
 combobox arrow {
@@ -2584,14 +2598,14 @@ headerbar entry:disabled:backdrop, .titlebar entry:disabled:backdrop {
   -gtk-icon-shadow: none;
   box-shadow: none;
 }
-headerbar entry image, .titlebar entry image {
-  color: mix(@window_fg_color,@view_bg_color,0.2);
-}
 headerbar entry image.left, .titlebar entry image.left {
   margin-right: 6px;
 }
 headerbar entry image.right, .titlebar entry image.right {
   margin-left: 6px;
+}
+headerbar entry image, .titlebar entry image {
+  color: mix(@window_fg_color,@view_bg_color,0.2);
 }
 headerbar entry image:hover, .titlebar entry image:hover {
   color: @headerbar_fg_color;
@@ -2960,10 +2974,6 @@ headerbar button.flat:not(:hover):not(:active):not(.titlebutton), .titlebar butt
   padding-right: 0;
 }
 
-treeview.view {
-  border-left-color: mix(@window_fg_color,@view_bg_color,0.5);
-  border-top-color: @window_bg_color;
-}
 * {
   -GtkTreeView-horizontal-separator: 4;
   -GtkTreeView-grid-line-width: 1;
@@ -2973,6 +2983,10 @@ treeview.view {
   -GtkTreeView-expander-size: 16;
 }
 
+treeview.view {
+  border-left-color: mix(@window_fg_color,@view_bg_color,0.5);
+  border-top-color: @window_bg_color;
+}
 treeview.view:selected:focus, treeview.view:selected {
   border-radius: 0;
 }
@@ -3006,10 +3020,12 @@ treeview.view:drop(active).before {
 }
 treeview.view.expander {
   -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
-  color: mix(@view_fg_color,@view_bg_color,0.3);
 }
 treeview.view.expander:dir(rtl) {
   -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
+}
+treeview.view.expander {
+  color: mix(@view_fg_color,@view_bg_color,0.3);
 }
 treeview.view.expander:hover {
   color: @view_fg_color;
@@ -3598,15 +3614,15 @@ notebook > stack:not(:only-child) {
   background-color: @view_bg_color;
 }
 
-scrollbar {
-  background-color: @view_bg_color;
-  transition: all 200ms linear;
-}
 * {
   -GtkScrollbar-has-backward-stepper: false;
   -GtkScrollbar-has-forward-stepper: false;
 }
 
+scrollbar {
+  background-color: @view_bg_color;
+  transition: all 200ms linear;
+}
 scrollbar slider {
   color: @window_fg_color;
   min-width: 8px;
@@ -4776,11 +4792,6 @@ scale.color.fine-tune.vertical:dir(rtl) slider {
   margin-left: 6px;
 }
 
-progressbar {
-  font-size: smaller;
-  color: alpha(@window_fg_color,0.4);
-  font-feature-settings: "tnum";
-}
 progressbar.horizontal trough,
 progressbar.horizontal progress {
   min-height: 8px;
@@ -4794,6 +4805,11 @@ progressbar.horizontal progress {
 }
 progressbar.vertical progress {
   margin: -1px 0;
+}
+progressbar {
+  font-size: smaller;
+  color: alpha(@window_fg_color,0.4);
+  font-feature-settings: "tnum";
 }
 progressbar:backdrop {
   box-shadow: none;
@@ -6015,11 +6031,11 @@ scrolledwindow list separator.horizontal {
 decoration {
   border-radius: 15px 15px 0 0;
   border-width: 0px;
-  box-shadow: 0 3px 12px 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.05);
   margin: 10px;
 }
 decoration:backdrop {
-  box-shadow: 0 3px 12px 1px transparent, 0 2px 6px 2px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 3px 8px 1px transparent, 0 2px 6px 2px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.02);
   transition: 200ms ease-out;
 }
 .maximized decoration, .fullscreen decoration {
@@ -6089,10 +6105,6 @@ button.titlebutton:backdrop {
 headerbar.selection-mode button.titlebutton:backdrop,
 .titlebar.selection-mode button.titlebutton:backdrop {
   -gtk-icon-shadow: none;
-}
-
-.selection-mode button.titlebutton {
-  color: @window_fg_color;
 }
 
 .monospace {
@@ -6279,13 +6291,13 @@ row.expander image.expander-row-arrow:disabled {
   color: alpha(@window_fg_color,0.5);
 }
 
+list.content list {
+  background-color: transparent;
+  border-radius: 12px;
+}
 list.content {
   background-color: transparent;
   color: @card_fg_color;
-  border-radius: 12px;
-}
-list.content list {
-  background-color: transparent;
   border-radius: 12px;
 }
 list.content > row {
@@ -7259,10 +7271,12 @@ button.back-button.text-button:dir(rtl) {
 
 .org-gnome-gedit notebook > header, .gedit-side-panel-paned notebook > header {
   background-color: @headerbar_bg_color;
-  box-shadow: inset 0 -1px @headerbar_shade_color;
 }
 .org-gnome-gedit notebook > header:backdrop, .gedit-side-panel-paned notebook > header:backdrop {
   background-color: @headerbar_backdrop_color;
+}
+.org-gnome-gedit notebook > header, .gedit-side-panel-paned notebook > header {
+  box-shadow: inset 0 -1px @headerbar_shade_color;
 }
 
 .gedit-search-slider {
@@ -7543,22 +7557,9 @@ window#whiskermenu-window button {
   margin-right: 0;
 }
 
-#MozillaGtkWidget.background button {
-  font-weight: initial;
-}
-#MozillaGtkWidget.background check, #MozillaGtkWidget.background radio {
-  padding: 0;
-  min-height: 12px;
-  min-width: 12px;
-}
-
 #MozillaGtkWidget.background selection:focus, #MozillaGtkWidget.background selection {
   background-color: @accent_bg_color;
   color: @accent_fg_color;
-}
-
-#MozillaGtkWidget > widget > frame > border {
-  border-top-color: transparent;
 }
 
 terminal-window notebook > header.top tabs:not(:only-child):first-child, terminal-window notebook > header.bottom tabs:not(:only-child):first-child {
@@ -7772,4 +7773,25 @@ window.background:not(.solid-csd):not(.csd) > notebook > header tab:checked:hove
 
 window.background:not(.solid-csd):not(.csd) > notebook > stack:not(:only-child) {
   background-color: @window_bg_color;
+}
+
+#settingsDialog .dialog-vbox.vertical tab {
+  box-shadow: none;
+  margin-right: 8px;
+  border-radius: 9px;
+}
+#settingsDialog .dialog-vbox.vertical tab:hover {
+  color: @window_fg_color;
+  background-color: mix(@window_fg_color,@window_bg_color,0.85);
+  box-shadow: none;
+}
+#settingsDialog .dialog-vbox.vertical tab:checked {
+  color: @window_fg_color;
+  background-color: mix(@window_fg_color,@window_bg_color,0.7);
+  box-shadow: none;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+#settingsDialog .dialog-vbox.vertical tab:checked:hover {
+  background-color: mix(@window_fg_color,@window_bg_color,0.65);
 }
